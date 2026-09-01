@@ -1,0 +1,7 @@
+# OpenTofu files
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# Variables & Secrets
+secret.tfvars

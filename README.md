@@ -1,19 +1,37 @@
-# moc-templates
+# moc-keycloak
 
-This repository serves two purposes:
+## Testing things locally
 
-- It may be used as a template repository when creating new repositories in the [CCI-MOC][] organization.
-- It is the canonical location of the `LICENSE` and `CONTRIBUTING.md` files.
+1. Spin up a local keycloak instance:
 
-[cci-moc]: https://github.com/CCI-MOC/
+    ```
+    make setup
+    ```
 
-## Contributing
+    It will take a few seconds for keycloak to become healthy.
 
-We'd love to have you contribute! Please refer to our [contribution
-guidelines](CONTRIBUTING.md) for details.
+2. Run `make init-local`. This will:
 
-## License
+    - override the S3 backend with a file backend
+    - rename `imports.tf` to `imports.tf.disabled`
+    - create `local-test.auto.tfvars` to point opentofu at the local keycloak instance
 
-[Apache 2.0 License](LICENSE).
+3. Run `tofu plan` or `tofu apply`, etc.
 
-The code is provided as-is with no warranties.
+4. When you're done, run `make init-remote`. This will undo the changes introduced by `make init-local`.
+
+5. To tear down your local Keycloak instance:
+
+    ```
+    make teardown
+    ```
+
+    This will stop the containers, destroy the postgres backing store, and erase your local `terraform.tfstate*` files.
+
+Note that if you are applying this configuration against a fresh keycloak instance, the "CILogon First Broker Login" authentication flow doesn't exist yet, so the realm will fail to apply. You can resolve this by running:
+
+```
+tofu apply -var first_broker_login_flow='first broker login'
+```
+
+This will allow opentofu to successfully create the realm.

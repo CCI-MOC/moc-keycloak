@@ -29,7 +29,7 @@ resource "keycloak_realm" "moc" {
   edit_username_allowed                    = false
   email_theme                              = ""
   enabled                                  = true
-  first_broker_login_flow                  = "CILogon First Broker Login"
+  first_broker_login_flow                  = var.first_broker_login_flow
   internal_id                              = "moc"
   login_theme                              = ""
   login_with_email_allowed                 = false

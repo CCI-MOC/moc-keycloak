@@ -19,7 +19,7 @@ resource "keycloak_oidc_identity_provider" "cilogon" {
   jwks_url                      = "https://cilogon.org/oauth2/certs"
   login_hint                    = "false"
   logout_url                    = ""
-  realm                         = "moc"
+  realm                         = keycloak_realm.moc.id
   store_token                   = false
   sync_mode                     = "IMPORT"
   token_url                     = "https://cilogon.org/oauth2/token"

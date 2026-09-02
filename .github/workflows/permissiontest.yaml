@@ -1,0 +1,45 @@
+name: Apply
+
+on:
+  workflow_dispatch:
+  push:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Setup OpenTofu
+        uses: opentofu/setup-opentofu@v2
+        with:
+          tofu_wrapper: false
+
+      - name: TF init
+        run: |
+          tofu -chdir=permissiontest init
+
+      - name: TF Validate
+        run: |
+          tofu -chdir=permissiontest validate
+
+      - name: TF Plan & Policy
+        run: |
+          tofu -chdir=permissiontest plan -out tfplan
+
+      - name: TF Apply
+        run: |
+          tofu -chdir=permissiontest apply -concise -auto-approve tfplan

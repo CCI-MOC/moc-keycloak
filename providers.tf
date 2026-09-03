@@ -36,4 +36,15 @@ provider "keycloak" {
 
 provider "aws" {
   region = "us-east-1"
+
+  # When use_secrets_manager=false (local testing) no AWS resources or data sources
+  # are in the graph, but the provider is still configured. Supply dummy static
+  # credentials and skip the network validation/metadata calls so it can
+  # configure without real AWS credentials. These have no effect when
+  # use_secrets_manager=true, where real credentials are used.
+  access_key                  = var.use_secrets_manager ? null : "test"
+  secret_key                  = var.use_secrets_manager ? null : "test"
+  skip_credentials_validation = !var.use_secrets_manager
+  skip_requesting_account_id  = !var.use_secrets_manager
+  skip_metadata_api_check     = !var.use_secrets_manager
 }

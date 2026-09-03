@@ -4,10 +4,10 @@ variable "first_broker_login_flow" {
   default     = "CILogon First Broker Login"
 }
 
-variable "store_secrets" {
+variable "use_secrets_manager" {
   type        = bool
   default     = true
-  description = "Store secrets to AWS secrets manager when true"
+  description = "Read secrets from and store secrets to AWS Secrets Manager when true. Set to false for local testing without AWS credentials."
 }
 
 variable "github_actions_issuer" {

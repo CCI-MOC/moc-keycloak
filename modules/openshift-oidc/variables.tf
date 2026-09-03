@@ -13,10 +13,10 @@ variable "client_secret_name" {
   description = "The Keycloak client_id and client_secret for the OpenShift cluster"
 }
 
-variable "store_secrets" {
+variable "use_secrets_manager" {
   type        = bool
   default     = true
-  description = "Store secrets to AWS secrets manager when true"
+  description = "Store secrets to AWS Secrets Manager when true"
 }
 
 variable "realm_id" {

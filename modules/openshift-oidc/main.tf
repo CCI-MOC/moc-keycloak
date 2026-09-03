@@ -83,7 +83,7 @@ resource "keycloak_openid_client" "this" {
 # -----------------------------------------------------------------------------
 
 resource "aws_secretsmanager_secret" "this" {
-  count = var.store_secrets ? 1 : 0
+  count = var.use_secrets_manager ? 1 : 0
 
   name                    = var.client_secret_name
   description             = "The Keycloak client_id and client_secret for the ${var.cluster_name} OpenShift cluster"
@@ -91,7 +91,7 @@ resource "aws_secretsmanager_secret" "this" {
 }
 
 resource "aws_secretsmanager_secret_version" "this" {
-  count = var.store_secrets ? 1 : 0
+  count = var.use_secrets_manager ? 1 : 0
 
   secret_id = aws_secretsmanager_secret.this[0].id
   secret_string = jsonencode({

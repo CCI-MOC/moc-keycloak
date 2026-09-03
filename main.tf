@@ -29,5 +29,5 @@ module "openshift_oidc" {
   openshift_redirect_uri = each.value.openshift_redirect_uri
   client_secret_name     = each.value.client_secret_name
   realm_id               = keycloak_realm.moc.id
-  store_secrets          = var.store_secrets
+  use_secrets_manager    = var.use_secrets_manager
 }

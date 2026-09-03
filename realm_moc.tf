@@ -110,3 +110,13 @@ resource "keycloak_realm" "moc" {
     user_verification_requirement     = "not specified"
   }
 }
+
+resource "keycloak_realm_localization" "moc_localization" {
+  locale   = "en"
+  realm_id = keycloak_realm.moc.id
+  texts = {
+    termsText = replace(
+      file("${path.module}/files/terms.html"), "/\r?\n/", " "
+    )
+  }
+}

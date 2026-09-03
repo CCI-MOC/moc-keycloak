@@ -16,6 +16,7 @@ KEYCLOAK_URL="http://localhost:8080"
 KEYCLOAK_USER_NAME="admin"
 KEYCLOAK_PASSWORD="admin"
 KEYCLOAK_CLIENT_ID="admin-cli"
+store_secrets=false
 endef
 
 init-local:

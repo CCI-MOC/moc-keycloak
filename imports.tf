@@ -16,12 +16,12 @@ import {
 
 import {
   for_each = local.openshift_oidc_clusters
-  to       = module.openshift_oidc[each.key].aws_secretsmanager_secret.this
+  to       = module.openshift_oidc[each.key].aws_secretsmanager_secret.this[0]
   id       = each.value.client_secret_name # Or each.value.secret_arn
 }
 
 import {
   for_each = local.openshift_oidc_clusters
-  to       = module.openshift_oidc[each.key].aws_secretsmanager_secret_version.this
+  to       = module.openshift_oidc[each.key].aws_secretsmanager_secret_version.this[0]
   id       = "${each.value.secret_arn}|${each.value.secret_version_id}"
 }

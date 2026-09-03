@@ -28,7 +28,7 @@ resource "keycloak_openid_client" "this" {
   backchannel_logout_url                         = ""
   base_url                                       = ""
   client_authenticator_type                      = "client-secret"
-  client_id                                      = "${var.cluster_name}"
+  client_id                                      = var.cluster_name
   client_offline_session_idle_timeout            = ""
   client_offline_session_max_lifespan            = ""
   client_secret                                  = null # sensitive
@@ -52,7 +52,7 @@ resource "keycloak_openid_client" "this" {
   implicit_flow_enabled                          = false
   import                                         = false
   login_theme                                    = ""
-  name                                           = "${var.cluster_name}"
+  name                                           = var.cluster_name
   oauth2_device_authorization_grant_enabled      = false
   oauth2_device_code_lifespan                    = ""
   oauth2_device_polling_interval                 = ""
@@ -83,13 +83,17 @@ resource "keycloak_openid_client" "this" {
 # -----------------------------------------------------------------------------
 
 resource "aws_secretsmanager_secret" "this" {
-  name                    = "${var.client_secret_name}"
+  count = var.store_secrets ? 1 : 0
+
+  name                    = var.client_secret_name
   description             = "The Keycloak client_id and client_secret for the ${var.cluster_name} OpenShift cluster"
   recovery_window_in_days = 0
 }
 
 resource "aws_secretsmanager_secret_version" "this" {
-  secret_id = aws_secretsmanager_secret.this.id
+  count = var.store_secrets ? 1 : 0
+
+  secret_id = aws_secretsmanager_secret.this[0].id
   secret_string = jsonencode({
     client_id     = keycloak_openid_client.this.client_id
     client_secret = keycloak_openid_client.this.client_secret

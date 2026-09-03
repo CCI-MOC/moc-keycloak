@@ -18,3 +18,8 @@ variable "store_secrets" {
   default     = true
   description = "Store secrets to AWS secrets manager when true"
 }
+
+variable "realm_id" {
+  type        = string
+  description = "Realm that owns this OIDC resources"
+}

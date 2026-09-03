@@ -59,7 +59,7 @@ resource "keycloak_openid_client" "this" {
   oauth2_jwt_authorization_grant_enabled         = false
   oauth2_jwt_authorization_grant_idp             = ""
   pkce_code_challenge_method                     = ""
-  realm_id                                       = "moc"
+  realm_id                                       = var.realm_id
   require_dpop_bound_tokens                      = false
   root_url                                       = ""
   service_accounts_enabled                       = true

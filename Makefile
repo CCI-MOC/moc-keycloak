@@ -42,3 +42,15 @@ wait:
 teardown:
 	docker compose down -v
 	rm -f terraform.tfstate*
+
+reset: teardown setup
+
+bootstrap: teardown setup wait init-local apply
+
+apply: validate
+	tofu apply -auto-approve -var first_broker_login_flow='first broker login' -target keycloak_realm.moc
+	tofu apply -auto-approve -var first_broker_login_flow='first broker login'
+	tofu apply -auto-approve
+
+validate:
+	tofu validate

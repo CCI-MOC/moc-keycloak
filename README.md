@@ -28,13 +28,13 @@
 
     This will stop the containers, destroy the postgres backing store, and erase your local `terraform.tfstate*` files.
 
-Note that if you are applying this configuration against a fresh keycloak instance, the "CILogon First Broker Login" authentication flow doesn't exist yet, so the realm will fail to apply. You can resolve this by running:
+Note that if you are applying this configuration against a fresh keycloak instance, you will need to run the following steps to bootstrap the environment:
 
 ```
+tofu apply -var first_broker_login_flow='first broker login' -target keycloak_realm.moc
 tofu apply -var first_broker_login_flow='first broker login'
+tofu apply
 ```
-
-This will allow opentofu to successfully create the realm.
 
 ## CI apply via GitHub Actions OIDC
 

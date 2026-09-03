@@ -10,7 +10,7 @@ resource "keycloak_realm" "moc" {
   access_token_lifespan_for_implicit_flow  = "15m0s"
   account_theme                            = ""
   action_token_generated_by_admin_lifespan = "12h0m0s"
-  action_token_generated_by_user_lifespan  = "5m0s"
+  action_token_generated_by_user_lifespan  = "1h0m0s"
   admin_permissions_enabled                = false
   admin_theme                              = ""
   attributes                               = {}

@@ -1,5 +1,5 @@
 data "keycloak_authentication_execution" "idp_redirector" {
-  realm_id          = keycloak_realm.moc.id
+  realm_id          = "moc"
   parent_flow_alias = "browser"
   provider_id       = "identity-provider-redirector"
 }

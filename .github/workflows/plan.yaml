@@ -18,7 +18,7 @@ jobs:
     if: github.event.pull_request.head.repo.full_name == github.repository && github.base_ref == 'main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Setup OpenTofu
         uses: opentofu/setup-opentofu@v2

@@ -24,10 +24,17 @@ variable "github_actions_jwks_url" {
 
 variable "github_actions_subject" {
   type        = string
-  description = "GitHub Actions OIDC `sub` claim allowed to authenticate as the federated client."
+  description = "GitHub Actions OIDC `sub` claim allowed to authenticate as the federated apply client (push to main)."
   # This repo's OIDC subject uses GitHub's immutable org/repo IDs, so the plain
   # "repo:CCI-MOC/moc-keycloak:..." form is never what the token carries and
   # would never match. Value obtained with:
   #   gh api repos/CCI-MOC/moc-keycloak/actions/oidc/customization/sub --jq .sub_claim_prefix
   default = "repo:CCI-MOC@3578683/moc-keycloak@1352835750:ref:refs/heads/main"
+}
+
+variable "github_actions_plan_subject" {
+  type        = string
+  description = "GitHub Actions OIDC `sub` claim allowed to authenticate as the federated plan client (pull_request events)."
+  # pull_request events carry a different sub suffix than branch-push events.
+  default = "repo:CCI-MOC@3578683/moc-keycloak@1352835750:pull_request"
 }

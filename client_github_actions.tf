@@ -38,3 +38,31 @@ resource "keycloak_openid_client_service_account_realm_role" "github_actions_adm
   service_account_user_id = keycloak_openid_client.github_actions.service_account_user_id
   role                    = data.keycloak_role.master_admin.name
 }
+
+# Separate client for plan (pull_request) events. The OIDC sub claim differs
+# between push-to-main and pull_request events, so they must be separate clients
+# because Keycloak's federated-jwt authenticator does an exact sub match.
+resource "keycloak_openid_client" "github_actions_plan" {
+  realm_id  = "master"
+  client_id = "github-actions-plan"
+  name      = "GitHub Actions plan (federated)"
+  enabled   = true
+
+  access_type                  = "CONFIDENTIAL"
+  client_authenticator_type    = "federated-jwt"
+  service_accounts_enabled     = true
+  standard_flow_enabled        = false
+  implicit_flow_enabled        = false
+  direct_access_grants_enabled = false
+
+  extra_config = {
+    "jwt.credential.issuer" = keycloak_oidc_identity_provider.github_actions.alias
+    "jwt.credential.sub"    = var.github_actions_plan_subject
+  }
+}
+
+resource "keycloak_openid_client_service_account_realm_role" "github_actions_plan_admin" {
+  realm_id                = "master"
+  service_account_user_id = keycloak_openid_client.github_actions_plan.service_account_user_id
+  role                    = data.keycloak_role.master_admin.name
+}

@@ -2,7 +2,8 @@ locals {
   keycloak_groups = toset([
     "open-accelerator-admins",
     "coldfront-admins",
-    "pi"
+    "pi",
+    "project-whiteroom-edit"
   ])
 }
 

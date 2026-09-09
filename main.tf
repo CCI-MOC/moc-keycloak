@@ -2,12 +2,6 @@
 locals {
   realm_id = "moc"
   openshift_oidc_clusters = {
-    oac_prod_infra = {
-      cluster_name           = "oac-prod-infra"
-      openshift_redirect_uri = "https://oauth-openshift.apps.infra.oac.ocp.massopen.cloud/oauth2callback/mocsso"
-      client_secret_name     = "cluster/oac-prod-infra/keycloak-oidc"
-      keycloak_client_uuid   = "oac-prod-infra"
-    }
     oac_prod_workload0 = {
       cluster_name           = "oac-prod-workload0"
       openshift_redirect_uri = "https://oauth-oac-prod-workload0.hcp.oac.massopen.cloud:443/oauth2callback/mocsso"

@@ -22,3 +22,18 @@ import {
   to = keycloak_openid_sub_protocol_mapper.sub
   id = "moc/client-scope/moc-openid/moc-openid-sub"
 }
+
+import {
+  to = keycloak_authentication_flow.require_existing_user_first_broker_login
+  id = "moc/cec15639-7454-41f7-997d-e7f949376de6"
+}
+
+import {
+  to = keycloak_authentication_execution.detect_existing_broker_user
+  id = "moc/Require Existing User First Broker Login/8bb89831-a073-4fb2-9209-1181e89b95f1"
+}
+
+import {
+  to = keycloak_authentication_execution.auto_link_existing_user
+  id = "moc/Require Existing User First Broker Login/2af7158d-e093-4851-b492-1532bd2fc3bb"
+}

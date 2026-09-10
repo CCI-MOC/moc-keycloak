@@ -39,6 +39,11 @@ resource "keycloak_authentication_subflow" "conditional_organization" {
   provider_id       = "basic-flow"
   requirement       = "CONDITIONAL"
   priority          = 60
+
+  depends_on = [
+    keycloak_authentication_execution.review_profile,
+    keycloak_authentication_subflow.user_creation_or_linking,
+  ]
 }
 
 # -- User creation or linking -------------------------------------------------

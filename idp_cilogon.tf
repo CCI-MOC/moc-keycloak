@@ -9,7 +9,7 @@ resource "keycloak_oidc_identity_provider" "cilogon" {
   default_scopes                = "openid email profile org.cilogon.userinfo"
   display_name                  = "cilogon"
   enabled                       = true
-  first_broker_login_flow_alias = keycloak_authentication_flow.cilogon_first_broker_login.alias
+  first_broker_login_flow_alias = "Require Existing User First Broker Login"
   issuer                        = "https://cilogon.org"
   jwks_url                      = "https://cilogon.org/oauth2/certs"
   login_hint                    = "false"

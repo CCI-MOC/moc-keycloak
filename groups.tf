@@ -3,7 +3,8 @@ locals {
     "open-accelerator-admins",
     "coldfront-admins",
     "pi",
-    "project-whiteroom-edit"
+    "project-whiteroom",
+    "intern-aibom",
   ])
 }
 

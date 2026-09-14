@@ -5,6 +5,7 @@ locals {
     "pi",
     "project-whiteroom",
     "intern-aibom",
+    "project-noah-labs",
   ])
 }
 

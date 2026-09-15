@@ -6,6 +6,7 @@ locals {
     "project-whiteroom",
     "intern-aibom",
     "project-noah-labs",
+    "project-accelidea",
   ])
 }
 

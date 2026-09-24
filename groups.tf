@@ -8,6 +8,7 @@ locals {
     "project-noah-labs",
     "project-accelidea",
     "project-asago",
+    "eldritch-things",
   ])
 }
 

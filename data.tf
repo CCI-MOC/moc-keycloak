@@ -1,6 +1,8 @@
 data "aws_secretsmanager_secret_version" "smtp_credentials" {
-  count     = var.use_secrets_manager ? 1 : 0
-  secret_id = "cluster/moc-services/keycloak/smtp"
+  count = var.use_secrets_manager ? 1 : 0
+
+  # This comes from https://github.com/CCI-MOC/moc-aws/blob/main/ses.tf
+  secret_id = "cluster/moc-services/keycloak-outbound-smtp"
 }
 
 data "aws_secretsmanager_secret_version" "cilogon_credentials" {

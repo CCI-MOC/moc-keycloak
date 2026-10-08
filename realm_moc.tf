@@ -71,7 +71,7 @@ resource "keycloak_realm" "moc" {
     envelope_from         = ""
     from                  = "contact@massopen.cloud"
     from_display_name     = "MOC Alliance"
-    host                  = "gvam1179.siteground.biz"
+    host                  = "email-smtp.us-east-1.amazonaws.com"
     port                  = "465"
     reply_to              = ""
     reply_to_display_name = ""

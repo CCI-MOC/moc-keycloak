@@ -67,13 +67,29 @@ This configures the Keycloak Client with the expected OpenShift Cluster settings
 
 The MOC has a customized login workflow, based on CILogon that provides the right experience for a user to accept terms of the MOC, validate their email, and log in through CILogon and then into the OpenShift clusters or other MOC services they came to access.
 
-- This is the [customized browser auth flow](https://github.com/CCI-MOC/moc-keycloak/blob/main/authentication_flow_browser.tf) that redirects users to the CILogon Identity Provider.
+- The built-in browser auth flow shows the Keycloak login page, with the [privacy and security notice](#privacy-and-security-notice) and a button to sign in with the CILogon Identity Provider.
 - This is the [require existing user auth flow](https://github.com/CCI-MOC/moc-keycloak/blob/main/auth_flow_require_exist_user.tf) that expects the current Open Accelerator users to be preregistered, and auto links their email to their CILogon account on the first logon.
 - This is the [CILogon first broker auth flow](https://github.com/CCI-MOC/moc-keycloak/blob/main/auth_flow_cilogon_first_broker.tf) that
   - `review_profile` `DISABLED`: disables reviewing their user profile
   - `confirm_link` `DISABLED`: disables confirm link existing account
   - `email_verification` `REQUIRED`: requires the user to verify email address
   - `verify_existing_account_by_reauthentication` `DISABLED`: disables verify existing account by re-authentication
+
+## Privacy and Security Notice
+
+Per NIST SP 800-171 3.1.9, the login page displays a privacy and security
+notice ([files/privacy_and_security_notice.html](files/privacy_and_security_notice.html))
+before the user signs in.
+
+The notice is appended to the `loginTitleHtml` message of the `moc_localization`
+in [realm_moc.tf](realm_moc.tf), the header of every login page, as it is the
+only message the default login theme renders as HTML. The HTML is sanitized by
+Keycloak, but inline styles are kept.
+
+For the notice to be displayed, the login page must not be skipped, so the
+Identity Provider Redirector of the browser flow has no default identity
+provider and users click the CILogon button to sign in. A client can still skip
+the login page, and the notice, by passing `kc_idp_hint=cilogon`.
 
 ## OpenShift Groups in Keycloak
 

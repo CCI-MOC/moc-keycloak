@@ -101,6 +101,13 @@ An OpenTofu list of these groups is found in
 
 3. Run `tofu plan` or `tofu apply`, etc.
 
+    Email sent by the local Keycloak is captured by mailpit, viewable at
+    <http://localhost:8025>.
+
+    `make test` runs the functional tests in `tests/` against the local
+    Keycloak, after a `make bootstrap`. They are written with pytest, and their
+    dependencies are managed with [uv](https://docs.astral.sh/uv/).
+
 4. When you're done, run `make init-remote`. This will undo the changes introduced by `make init-local`.
 
 5. To tear down your local Keycloak instance:

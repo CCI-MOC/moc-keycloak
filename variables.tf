@@ -38,3 +38,18 @@ variable "github_actions_plan_subject" {
   # pull_request events carry a different sub suffix than branch-push events.
   default = "repo:CCI-MOC@3578683/moc-keycloak@1352835750:pull_request"
 }
+
+variable "smtp_host" {
+  type    = string
+  default = "email-smtp.us-east-1.amazonaws.com"
+}
+
+variable "smtp_port" {
+  type    = string
+  default = "465"
+}
+
+variable "smtp_ssl" {
+  type    = bool
+  default = true
+}

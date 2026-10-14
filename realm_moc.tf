@@ -71,11 +71,11 @@ resource "keycloak_realm" "moc" {
     envelope_from         = ""
     from                  = "contact@massopen.cloud"
     from_display_name     = "MOC Alliance"
-    host                  = "email-smtp.us-east-1.amazonaws.com"
-    port                  = "465"
+    host                  = var.smtp_host
+    port                  = var.smtp_port
     reply_to              = ""
     reply_to_display_name = ""
-    ssl                   = true
+    ssl                   = var.smtp_ssl
     starttls              = false
     auth {
       username = local.smtp_credentials.username

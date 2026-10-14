@@ -1,4 +1,4 @@
-.PHONY: init-local init-remote all
+.PHONY: init-local init-remote all test
 
 all:
 	@echo "Run one of `make init-local` or `make init-remote`"
@@ -17,6 +17,9 @@ KEYCLOAK_USER_NAME="admin"
 KEYCLOAK_PASSWORD="admin"
 KEYCLOAK_CLIENT_ID="admin-cli"
 use_secrets_manager=false
+smtp_host="mailpit"
+smtp_port="1025"
+smtp_ssl=false
 endef
 
 init-local:
@@ -54,3 +57,6 @@ apply: validate
 
 validate:
 	tofu validate
+
+test:
+	python3 -m pytest -v tests

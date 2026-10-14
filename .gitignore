@@ -5,3 +5,7 @@
 
 # Variables & Secrets
 secret.tfvars
+
+# Python
+__pycache__/
+.pytest_cache/

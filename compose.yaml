@@ -15,7 +15,11 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.7
-    command: ["start-dev"]
+    command:
+      - start-dev
+      # Check for due workflow steps every 2s instead of every 12h, so the
+      # functional tests can exercise workflows with short delays.
+      - --spi-events-listener--workflow-event-listener--step-runner-task-interval=2s
     environment:
       # Database
       KC_DB: postgres
@@ -32,6 +36,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      mailpit:
+        condition: service_started
     healthcheck:
       # The Keycloak image ships no curl/wget, so probe the management port
       # with bash's /dev/tcp.
@@ -44,6 +50,16 @@ services:
       timeout: 5s
       retries: 20
       start_period: 30s
+
+  # Captures email sent by Keycloak. Web UI and API at http://localhost:8025.
+  mailpit:
+    image: axllent/mailpit:v1.31.3
+    environment:
+      # The realm always authenticates to its SMTP server.
+      MP_SMTP_AUTH_ACCEPT_ANY: "1"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "1"
+    ports:
+      - "8025:8025"
 
 volumes:
   postgres_data:

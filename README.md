@@ -101,6 +101,13 @@ An OpenTofu list of these groups is found in
 
 3. Run `tofu plan` or `tofu apply`, etc.
 
+    Email sent by the local Keycloak is captured by mailpit, viewable at
+    <http://localhost:8025>.
+
+    `make test` runs the functional tests in `tests/` against the local
+    Keycloak, after a `make bootstrap`. They are written with pytest; install
+    their dependencies with `pip install -r tests/requirements.txt`.
+
 4. When you're done, run `make init-remote`. This will undo the changes introduced by `make init-local`.
 
 5. To tear down your local Keycloak instance:
@@ -126,3 +133,22 @@ configuration on pushes to `main`. It authenticates to Keycloak using GitHub
 Actions' OIDC identity (using [federated client authentication]).
 
 [federated client authentication]: https://www.keycloak.org/2026/01/federated-client-authentication
+
+## Disabling inactive users
+
+The `disable-inactive-users` workflow (`workflow_disable_inactive_users.tf`)
+disables CILogon users who have not logged in for 45 days, emailing them a
+warning 7 days beforehand. Each login resets the countdown. Users that existed
+before the workflow was created are enrolled by a daily scan, and their
+countdown starts at enrollment.
+
+Users disabled by the workflow are added to the `disabled-due-to-inactivity`
+group, which keeps them from being re-enrolled. When re-enabling such a user,
+also remove them from that group; otherwise the workflow will no longer apply
+to them.
+
+While any user has an active execution of the workflow, Keycloak only allows
+changing the configuration of its steps (such as delays). Changing `on`, or
+adding, removing or reordering steps, requires deleting and recreating the
+workflow (`tofu apply -replace keycloak_workflow.disable_inactive_users`),
+which restarts every user's countdown.

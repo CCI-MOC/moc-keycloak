@@ -122,7 +122,10 @@ An OpenTofu list of these groups is found in
 
     `make test` runs the functional tests in `tests/` against the local
     Keycloak, after a `make bootstrap`. They are written with pytest, and their
-    dependencies are managed with [uv](https://docs.astral.sh/uv/).
+    dependencies are managed with [uv](https://docs.astral.sh/uv/). A screenshot
+    of the login page, taken with [Playwright](https://playwright.dev/python/),
+    is saved in `screenshots/`. The bootstrap CI workflow uploads it as the
+    `screenshots` artifact.
 
 4. When you're done, run `make init-remote`. This will undo the changes introduced by `make init-local`.
 

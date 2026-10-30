@@ -9,6 +9,7 @@ locals {
     "project-accelidea",
     "project-asago",
     "project-uat",
+    "project-buit",
   ])
 }
 

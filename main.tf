@@ -8,6 +8,12 @@ locals {
       client_secret_name     = "cluster/dizzy/keycloak-oidc"
       keycloak_client_uuid   = "dizzy"
     }
+    moc_infra = {
+      cluster_name           = "moc-infra"
+      openshift_redirect_uri = "https://oauth-openshift.apps.moc-infra.massopen.cloud/oauth2callback/mocsso"
+      client_secret_name     = "cluster/moc-infra/keycloak-oidc"
+      keycloak_client_uuid   = "moc-infra"
+    }
     oac_prod_infra = {
       cluster_name           = "oac-prod-infra"
       openshift_redirect_uri = "https://oauth-openshift.apps.infra.oac.ocp.massopen.cloud/oauth2callback/mocsso"

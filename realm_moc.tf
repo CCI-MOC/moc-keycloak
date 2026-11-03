@@ -118,5 +118,13 @@ resource "keycloak_realm_localization" "moc_localization" {
     termsText = replace(
       file("${path.module}/files/terms.html"), "/\r?\n/", " "
     )
+    # Header of every login page, normally just the realm's display_name_html
+    # ({0}). The privacy and security notice is appended to it, as it is the
+    # only message the default login theme renders as HTML. The value is a
+    # MessageFormat pattern, in which a literal ' must be written as ''.
+    loginTitleHtml = "{0}${replace(
+      replace(file("${path.module}/files/privacy_and_security_notice.html"), "/\r?\n/", " "),
+      "'", "''"
+    )}"
   }
 }

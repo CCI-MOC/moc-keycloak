@@ -10,3 +10,6 @@ secret.tfvars
 .venv/
 __pycache__/
 .pytest_cache/
+
+# Functional test screenshots
+screenshots/

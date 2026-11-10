@@ -56,6 +56,12 @@ locals {
       client_secret_name     = "cluster/nist-dev-infra/keycloak-oidc"
       keycloak_client_uuid   = "nist-dev-infra"
     }
+    bu_ist_demo_infra = {
+      cluster_name           = "bu-ist-demo-infra"
+      openshift_redirect_uri = "https://oauth-openshift.apps.bu-ist-demo.int.massopen.cloud/oauth2callback/mocsso"
+      client_secret_name     = "cluster/bu-ist-demo-infra/keycloak-oidc"
+      keycloak_client_uuid   = "bu-ist-demo-infra"
+    }
   }
 }
 

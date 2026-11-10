@@ -24,6 +24,18 @@ jobs:
       - name: Setup uv
         uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e
 
+      - name: Install browser for functional tests
+        run: |
+          uv run playwright install --with-deps chromium
+
       - name: Functional tests
         run: |
           make test
+
+      - name: Upload screenshots
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: screenshots
+          path: screenshots/
+          if-no-files-found: warn

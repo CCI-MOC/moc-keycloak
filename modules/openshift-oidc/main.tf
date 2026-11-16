@@ -67,7 +67,7 @@ resource "keycloak_openid_client" "this" {
   standard_token_exchange_enabled                = false
   use_refresh_tokens                             = false
   use_refresh_tokens_client_credentials          = false
-  valid_post_logout_redirect_uris                = []
+  valid_post_logout_redirect_uris                = ["${var.logout_redirect_uri}"]
   valid_redirect_uris                            = ["${var.openshift_redirect_uri}"]
   web_origins                                    = []
   authorization {

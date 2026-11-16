@@ -8,6 +8,12 @@ variable "openshift_redirect_uri" {
   description = "The OAuth2 callback URL of the OpenShift Cluster for the Keycloak identity provider"
 }
 
+variable "logout_redirect_uri" {
+  type        = string
+  description = "The OAuth2 callback URL redirect after logging out of the OpenShift Console through Keycloak"
+  default     = "https://cilogon.org/logout/"
+}
+
 variable "client_secret_name" {
   type        = string
   description = "The Keycloak client_id and client_secret for the OpenShift cluster"

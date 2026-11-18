@@ -82,6 +82,38 @@ These Groups are managed by Keycloak, and OpenShift knows the group of each user
 An OpenTofu list of these groups is found in
 [OpenTofu user group configuration](https://github.com/CCI-MOC/moc-keycloak/blob/main/groups.tf).
 
+## Configuring open tofu locally
+
+Connect to the EKS cluster with kubectl.
+
+```bash
+export AWS_PROFILE=moc
+aws sso login
+```
+
+There is a one time configuration to connect to the `moc-services` kubernetes cluster in `us-east-1`.
+For more information, see the AWS user guide to [Connect kubectl to an EKS cluster](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html).
+
+```bash
+aws eks update-kubeconfig --region us-east-1 --name moc-services
+```
+
+Set the moc-services Keycloak environment variables.
+
+```bash
+export TF_CLI_ARGS_plan=-lock=false
+export TF_VAR_KEYCLOAK_CLIENT_ID=admin-cli
+export TF_VAR_KEYCLOAK_USER_NAME=temp-admin
+export TF_VAR_KEYCLOAK_PASSWORD=$(oc -n keycloak get secret/keycloak-initial-admin -o jsonpath={.data.password} | base64 -d)
+```
+
+### Run a tofu plan
+
+```bash
+tofu plan
+```
+
+You should see your recent changes in the plan, or if you haven't made any changes, it should say, `No changes. Your infrastructure matches the configuration`.
 
 ## Testing things locally
 

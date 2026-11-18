@@ -15,7 +15,11 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.7
-    command: ["start-dev"]
+    command:
+      - start-dev
+      # Check for due workflow steps every 2s instead of every 12h, so the
+      # functional tests can exercise workflows with short delays.
+      - --spi-events-listener--workflow-event-listener--step-runner-task-interval=2s
     environment:
       # Database
       KC_DB: postgres

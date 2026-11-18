@@ -39,6 +39,24 @@ variable "github_actions_plan_subject" {
   default = "repo:CCI-MOC@3578683/moc-keycloak@1352835750:pull_request"
 }
 
+variable "inactive_user_warning_after" {
+  type        = string
+  description = "Time since a user's last login after which they are warned that their account will be disabled for inactivity."
+  default     = "38d"
+}
+
+variable "inactive_user_disable_after" {
+  type        = string
+  description = "Time after the inactivity warning after which the user is disabled."
+  default     = "7d"
+}
+
+variable "inactive_user_scan_interval" {
+  type        = string
+  description = "Interval at which existing users without an inactivity workflow execution are enrolled."
+  default     = "1d"
+}
+
 variable "smtp_host" {
   type    = string
   default = "email-smtp.us-east-1.amazonaws.com"

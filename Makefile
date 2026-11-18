@@ -59,4 +59,5 @@ validate:
 	tofu validate
 
 test:
+	uv run playwright install chromium
 	uv run pytest -v tests

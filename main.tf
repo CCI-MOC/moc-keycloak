@@ -56,6 +56,12 @@ locals {
       client_secret_name     = "cluster/compliant-dev-infra/hostedcluster/compliant-dev-workload0/keycloak-oidc"
       keycloak_client_uuid   = "compliant-dev-workload0"
     }
+    andalusia = {
+      cluster_name           = "andalusia"
+      openshift_redirect_uri = "https://oauth-andalusia.hcp-int.nist.int.massopen.cloud:443/oauth2callback/mocsso"
+      client_secret_name     = "cluster/compliant-dev-infra/hostedcluster/andalusia/keycloak-oidc"
+      keycloak_client_uuid   = "andalusia"
+    }
     bu_ist_demo_infra = {
       cluster_name           = "bu-ist-demo-infra"
       openshift_redirect_uri = "https://oauth-openshift.apps.bu-ist-demo.int.massopen.cloud/oauth2callback/mocsso"
